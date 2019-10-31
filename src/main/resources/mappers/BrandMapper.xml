@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC  
+    "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+					<!--对应mapper接口的全路径-->
+<mapper namespace="com.fh.shop.api.brand.mapper.IBrandMapper">
+    <sql id="searchWhere">
+        <where>
+            <if test="brandName != null and brandName != ''">
+                brandName like concat ('%',#{brandName},'%')
+            </if>
+        </where>
+    </sql>
+    <select id="findCount" parameterType="com.fh.shop.api.brand.param.SearchParamBrand" resultType="long">
+        select count(*) from t_brand
+        <include refid="searchWhere"></include>
+    </select>
+    <select id="findPageList" parameterType="com.fh.shop.api.brand.param.SearchParamBrand" resultType="com.fh.shop.api.brand.po.brand.Brand">
+        select t.* from
+        (select id,brandName from t_brand
+        <include refid="searchWhere"></include>) t
+        limit #{start},#{length}
+    </select>
+</mapper>

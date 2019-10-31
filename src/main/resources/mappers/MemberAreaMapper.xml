@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC  
+    "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+					<!--对应mapper接口的全路径-->
+<mapper namespace="com.fh.shop.api.memberArea.mapper.IMemberAreaMapper">
+<select id="findMemberArea" parameterType="long" resultType="com.fh.shop.api.memberArea.po.MemberArea">
+      select ma.id,addresseeName,addresseePhone,concat(addresseeName,'  ',a1.areaName,a2.areaName,a3.areaName,'  ',areaDetails) "allAreaInfo" from t_member_area ma
+        left join t_area a1 on ma.area1 = a1.id
+        left join t_area a2 on ma.area2 = a2.id
+        left join t_area a3 on ma.area3 = a3.id
+      where memberId = #{value}
+  </select>
+
+    <select id="findMemberAreById" parameterType="long" resultType="com.fh.shop.api.memberArea.po.MemberArea">
+      select ma.id,addresseeName,addresseePhone,concat(addresseeName,'  ',a1.areaName,a2.areaName,a3.areaName,'  ',areaDetails) "allAreaInfo" from t_member_area ma
+        left join t_area a1 on ma.area1 = a1.id
+        left join t_area a2 on ma.area2 = a2.id
+        left join t_area a3 on ma.area3 = a3.id
+      where ma.id = #{value}
+  </select>
+</mapper>
